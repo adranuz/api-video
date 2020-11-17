@@ -12,5 +12,5 @@ moviesApi(app)
 
 
 app.listen(config.port, () => { // corremos la app en el puerto
-  console.log(`Listening https://localhost: ${config.port}`)// log cualquiera
+  console.log(`Listening https://localhost:${config.port}`)// log cualquiera
 })

@@ -8,7 +8,8 @@ class MoviesService {
     this.mongoDB = new MongoLib()
   }
 
-  async getMovies({ tags }) {
+  // async getMovies({ tags }) {
+  async getMovies() {
 
     // const query = tags && { tags: { $in: tags }} //si existen los tags construye el siguiente query
     // const movies = await Promise.resolve(moviesMock)
