@@ -1,11 +1,14 @@
 const express = require('express')
-const app = express()// ejecuta express para que cree la nueva app
+const app = express() // corre la apliccion de expres y la llama app
 
-const { config } = require('./config/index')
+const { config } = require('./config/index.js') // obtenemos las variables de entorno
 
-app.get('/', (req, res) => res.send("hesrwld"))
-app.get('/json', (req, res) => res.send({ hello: "hesdasdasslllo Wsoasdassrld" }))
+//rutas permitidas
+const moviesApi = require('./routes/movies.js')
 
-app.listen(config.port, () => {
-  console.log(`Listening https://localhost:${config.port}`)
+moviesApi(app)
+
+
+app.listen(config.port, () => { // corremos la app en el puerto
+  console.log(`Listening https://localhost: ${config.port}`)// log cualquiera
 })
