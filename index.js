@@ -2,9 +2,11 @@ const express = require('express')
 const app = express() // corre la apliccion de expres y la llama app
 
 const { config } = require('./config/index.js') // obtenemos las variables de entorno
+const moviesApi = require('./routes/movies.js') //rutas permitidas
 
-//rutas permitidas
-const moviesApi = require('./routes/movies.js')
+app.use(express.json) //middleware body-parser
+
+
 
 moviesApi(app)
 

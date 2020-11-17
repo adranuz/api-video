@@ -9,7 +9,9 @@ function moviesApi(app) {
   const moviesService = new MoviesService()
   
   router.get('/', async (req, res, next) => {
-    const { tags } = req.query
+    console.log('getall')
+
+    const { tags } = req.query || {}
     try {
       const movies = await moviesService.getMovies({ tags })
       res.status(200).json({
