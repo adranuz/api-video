@@ -9,25 +9,23 @@ function moviesApi(app) {
   const moviesService = new MoviesService()
   
   router.get('/', async (req, res, next) => {
-    
-
     const { tags } = req.query || {}
     try {
       const movies = await moviesService.getMovies({ tags })
+      // throw new Error('Unespected Error');
       res.status(200).json({
         data: movies,
         message: 'movies listed'
       })
     } catch (error) {
-      next(error)
+      next(error) //esto es lo que llama al middleware
     }
   })
-
     
   router.get('/:movieId', async (req, res, next) => {
     const { movieId } = req.params
     try {
-      const movies = await moviesService.getMovie({movieId})
+      const movies = await moviesService.getMovie({ movieId })
       res.status(200).json({
         data: movies,
         message: 'movie retrieved'
@@ -36,7 +34,6 @@ function moviesApi(app) {
       next(error)
     }
   })
-
 
   router.post('/', async (req, res, next) => {
     const { body: movie } = req

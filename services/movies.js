@@ -9,11 +9,11 @@ class MoviesService {
   }
 
   // async getMovies({ tags }) {
-  async getMovies() {
+  async getMovies({ tags }) {
 
-    // const query = tags && { tags: { $in: tags }} //si existen los tags construye el siguiente query
+    const query = tags && { tags: { $in: tags }} //si existen los tags construye el siguiente query
     // const movies = await Promise.resolve(moviesMock)
-    const movies = await this.mongoDB.getAll(this.collection)
+    const movies = await this.mongoDB.getAll(this.collection, query)
     return movies || []
   }
 
