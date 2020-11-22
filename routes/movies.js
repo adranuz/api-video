@@ -1,13 +1,19 @@
 const express = require('express')
 
 const MoviesService = require('../services/movies')
+const validationHandler = require('../utils/middlewares/validationHandler')
+const {
+  movieIdSchema,
+  createMovieSchema,
+  updateMovieSchema
+} = require('../utils/schemas/movies')
 
 function moviesApi(app) {
   const router = express.Router()
   app.use('/api/movies', router)
 
   const moviesService = new MoviesService()
-  
+
   router.get('/', async (req, res, next) => {
     const { tags } = req.query || {}
     try {
@@ -21,8 +27,8 @@ function moviesApi(app) {
       next(error) //esto es lo que llama al middleware
     }
   })
-    
-  router.get('/:movieId', async (req, res, next) => {
+
+  router.get('/:movieId', validationHandler({ movieId: movieIdSchema }, 'params'), async (req, res, next) => {
     const { movieId } = req.params
     try {
       const movies = await moviesService.getMovie({ movieId })
@@ -35,10 +41,10 @@ function moviesApi(app) {
     }
   })
 
-  router.post('/', async (req, res, next) => {
+  router.post('/', validationHandler(createMovieSchema), async (req, res, next) => {
     const { body: movie } = req
     try {
-      const createdMovieId = await moviesService.createMovie({movie})
+      const createdMovieId = await moviesService.createMovie({ movie })
       res.status(201).json({
         data: createdMovieId,
         message: 'movie created'
@@ -48,7 +54,7 @@ function moviesApi(app) {
     }
   })
 
-  router.put('/:movieId', async (req, res, next) => {
+  router.put('/:movieId', validationHandler({ movieId: movieIdSchema }, 'params'), validationHandler(updateMovieSchema), async (req, res, next) => {
     const { movieId } = req.params
     const { body: movie } = req
     try {
@@ -65,7 +71,7 @@ function moviesApi(app) {
     }
   })
 
-  router.delete('/:movieId', async (req, res, next) => {
+  router.delete('/:movieId', validationHandler({ movieId: movieIdSchema }, 'params'), async (req, res, next) => {
     const { movieId } = req.params
     try {
       const deletedMovieId = await moviesService.deleteMovie({ movieId })
@@ -78,15 +84,15 @@ function moviesApi(app) {
     }
   })
 
-  router.patch('/:movieId', async (req, res, next) => {
+  router.patch('/:movieId', validationHandler({ movieId: movieIdSchema }, 'params'), validationHandler(updateMovieSchema), async (req, res, next) => {
     const { movieId } = req.params
     const { body: movie } = req
-    
+
     try {
       const patchMovieId = await moviesService.patchMovie({
         movieId,
         movie
-       })
+      })
       res.status(200).json({
         data: patchMovieId,
         message: 'movie partial updated'

@@ -1,14 +1,19 @@
+const boom = require('@hapi/boom')
+const joi = require('@hapi/joi')
 
 /**
  * Funcion filtro de validaciones
  */
-function validate() {
-  return false
+function validate(data, schema) {
+  const { error } = joi.object(schema).validate(data)
+  return error
 }
 
-
 /**
- * function que compara el schema con el body obtenido
+ * Middleware that verifies if the response or check is an error or not
+ * and if it is, trasnforme it 
+ * @param  {} schema - determina cual sera el formato de la respuesta que vamos a enviar
+ * @param  {} check - "body" de la respuesta del request
  */
 function validationHandler(schema, check = "body") {
   return function(req, res, next) {
