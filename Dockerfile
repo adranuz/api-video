@@ -1,7 +1,10 @@
-FROM node:15.2.0-alpine3.10
-COPY ["package.json", "/usr/src/"]
-WORKDIR /usr/src
+FROM node:10-alpine
+WORKDIR /srv/app
+COPY . .
 RUN npm install
-COPY [".", "/usr/src/"]
 EXPOSE 3000
-CMD ["node",  "index.js"]
+ENV NODE_ENV=production
+CMD ["node", "index.js"]
+
+# docker build -t movies-api
+# docker run -d movies-api

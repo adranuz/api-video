@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express() // corre la apliccion de expres y la llama app
 const { config } = require('./config/index.js') // obtenemos las variables de entorno
-
+const debug = require("debug")("app:server");
 
 /** Parser Middleware, you can read the json response with this */
 const bodyParser = require('body-parser')
@@ -42,5 +42,5 @@ app.use(errorHandler) // Response the error
 
 /** Run the app in the port */
 app.listen(config.port, () => { 
-  console.log(`Listening https://localhost:${config.port}`)// log cualquiera
+  debug(`Listening https://localhost:${config.port}`);
 })
