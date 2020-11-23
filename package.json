@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "set DEBUG=app:* && set NODE_ENV=development && nodemon index",
     "start": "set NODE_ENV=production && node index",
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "cover": "nyc npm run test",
+    "report": "nyc report --reporter=html && open coverage/index.html"
   },
   "keywords": [],
   "author": "Adrian Garcia <garciasaaib@gmail.com>",
@@ -32,6 +34,7 @@
     "lint-staged": "^10.5.1",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.6",
+    "nyc": "^15.1.0",
     "prettier": "^2.1.2",
     "proxyquire": "^2.1.3",
     "sinon": "^9.2.1",
@@ -44,5 +47,14 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
+  },
+  "nyc": {
+    "all": true,
+    "inck=lude": [
+      "routes",
+      "services",
+      "lib",
+      "utils"
+    ]
   }
 }
