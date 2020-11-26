@@ -27,7 +27,8 @@ app.use(helmet());
 /** Routes Middleware */
 const moviesApi = require('./routes/movies.js') //rutas permitidas
 moviesApi(app)
-
+/** Middleware that shows the static side */
+app.use('/', express.static('public'))
 
 /** Middleware that keep the format of the url using slashes at start and end */
 const slash = require('express-slash')
@@ -39,6 +40,8 @@ const { logErrors, wrapErrors, errorHandler} = require('./utils/middlewares/erro
 app.use(logErrors) // Makes a console.log
 app.use(wrapErrors) // Validate a boom error
 app.use(errorHandler) // Response the error
+
+
 
 /** Run the app in the port */
 app.listen(config.port, () => { 
