@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom')
-const { config } = require('../../config')
+require('dotenv').config();
+const debug = require("debug")("db:mock");
 
 /**
  * Function that returns the hole error if we are in development mode,
@@ -8,7 +9,9 @@ const { config } = require('../../config')
  * @param  {} stack - error content
  */
 function withErrorStack(error, stack) {
-  if (config.dev) {
+  if (!process.env.NODE_ENV === 'production') {
+    console.log('Estamos en developer')
+    // console.log(process.env.NODE_ENV)
     return { ...error, stack } //esto es asi porque tomamos el error y lo pasamos por boom
   }
   return error
@@ -21,7 +24,7 @@ function withErrorStack(error, stack) {
  * @param  {} next - send info to the next middleware
  */
 function logErrors(err, req, res, next) {
-  console.log(err)
+  debug(err)
   next(err)
 }
 
