@@ -1,8 +1,10 @@
 require('dotenv').config();
+const holo = process.env.NODE_ENV
+console.log(holo)
 
 const config = {
   // dev: process.env.NODE_ENV.trim() !== 'production',
-  dev: process.env.NODE_ENV.trim() !== 'production' ? true : false,
+  dev: process.env.NODE_ENV !== 'production' ? true : false,
   port: process.env.PORT || 3000,
   cors: process.env.CORS,
   dbUser: process.env.DB_USER,
@@ -11,5 +13,5 @@ const config = {
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT
 }
-
+console.log(config)
 module.exports = { config }

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "set DEBUG=app:* && set NODE_ENV=development && nodemon index",
-    "start": "set NODE_ENV=production && node ./index.js",
+    "dev": "set DEBUG=app:*&& set NODE_ENV=development&& nodemon index",
+    "start": "set NODE_ENV=production&& node ./index.js",
     "test": "mocha --exit",
     "cover": "nyc npm run test",
     "report": "nyc report --reporter=html && open coverage/index.html",
