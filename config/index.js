@@ -1,6 +1,4 @@
 require('dotenv').config();
-const holo = process.env.NODE_ENV
-console.log(holo)
 
 const config = {
   // dev: process.env.NODE_ENV.trim() !== 'production',
