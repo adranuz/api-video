@@ -25,8 +25,10 @@ app.use(helmet());
 
 /** Routes Middleware */
 app.use('/', express.static(__dirname + '/public'));
-const moviesApi = require('./routes/movies.js') //rutas permitidas
-moviesApi(app)
+const moviesApi = require('./routes/movies');
+const userMoviesApi = require('./routes/userMovies');
+moviesApi(app);
+userMoviesApi(app);
 
 /** Statics */
 
