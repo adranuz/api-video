@@ -22,7 +22,7 @@ function userMoviesApi(app) {
   /** Crea el router */
   const router = express.Router();
   /** Crea la ruta y adjunta el router que vamos a terminar de declarar */
-  app.user('/api/user-movies', router);
+  app.use('/api/user-movies', router);
   /** Crea una instancia de los servicios, que contiene los metodos de mongo */
   const userMovieService = new UserMovieService();
 

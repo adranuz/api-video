@@ -1,5 +1,12 @@
 const express = require('express')
 
+/**
+ * MoviesService - metodos para los registros de movies
+ * validationHandler - libreria para validar que los schemas
+ * movieIdSchema - schema del id de la movie
+ * createMovieSchema - schema del objeto movie sin id
+ * updateMovieSchema - schema del objeto movie con id
+ */
 const MoviesService = require('../services/movies')
 const validationHandler = require('../utils/middlewares/validationHandler')
 const {
@@ -8,7 +15,11 @@ const {
   updateMovieSchema
 } = require('../utils/schemas/movies')
 
-/** Manejo de cache */
+/** 
+ * Manejo de cache
+ * cacheResponse - Metodo que establece un valor al header de cache
+ * FIVE_MINUTES_IN_SECONDS, SIXTY_MINUTES_IN_SECONDS - valores de segundos
+ */
 const cacheResponse = require('../utils/cacheResponse')
 const { FIVE_MINUTES_IN_SECONDS, SIXTY_MINUTES_IN_SECONDS } = require('../utils/time')
 

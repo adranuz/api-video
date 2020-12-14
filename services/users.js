@@ -8,7 +8,8 @@ class UsersService {
   }
 
   async getUser({ email }) {
-    const { user } = await this.mongoDB.getAll(this.collection, { email });
+    /** Aqui no entiendo porque no funciona si declaro la variable de otra manera que no sea un vector */
+    const [ user ] = await this.mongoDB.getAll(this.collection, { email });
     return user;
   }
 
