@@ -6,13 +6,18 @@ const express = require('express');
  * boom - para la interpretacion de errores
  * jwt - para crear el token firmado
  * config - para obtener los datos de configuracion de firma de token
+ * UsersService - se va a usar su metodo para crear usuarios
+ * validationHandler - para validar los schemas
+ * createUserSchema - schema para crear un nuevo usuario
  */
 const ApiKeysService = require('../services/apiKeys');
 const passport = require('passport');
 const boom = require('@hapi/boom');
 const jwt = require('jsonwebtoken');
 const { config } = require('../config');
-
+const UsersService = require('../services/users');
+const validationHandler = require('../utils/middlewares/validationHandler');
+const { createUserSchema } = require('../utils/schemas/users');
 
 /**
  * Trae la estrategia basic para la autentificacion,
@@ -26,9 +31,10 @@ function authApi(app) {
   app.use('/api/auth', router);
 
   const apiKeyService = new ApiKeysService();
+  const userService = new UsersService();
 
   router.post(
-    '/sign-in',
+    '/signin',
     async (req, res, next) => {
       /** apiKeyToken es obtenido del body */
       const { apiKeyToken } = req.body;
@@ -83,6 +89,26 @@ function authApi(app) {
 
     },
   );
+
+  router.post(
+    '/signup',
+    validationHandler(createUserSchema),
+    async (req, res, next) => {
+      /** Obtenemos el usuario de la request */
+      const { body: user } = req;
+      try {
+        /** Crea el usuario y obtiene el id */
+        const createdUserId = await userService.createUser({ user })
+        res.status(201).json({
+          data: createdUserId,
+          message: 'user created'
+        })
+      } catch (error) {
+        next(error)
+      }
+    }
+  );
+
 };
 
 module.exports = authApi;
