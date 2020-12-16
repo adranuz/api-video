@@ -2,7 +2,7 @@
   "name": "my-app-video",
   "version": 2,
   "alias": ["my-app-video.com", "my-alias"],
-  "builds": [
+  "build": [
     {
       "src": "index.js",
       "use": "@vercel/node"
