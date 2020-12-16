@@ -27,7 +27,7 @@ class MongoLib {
     this.dbName = DB_NAME
   }
 
-  // PATRON SINGLETON PARA QUE HAYA UNA SOLA INSTANCIA DE LA CONEXION
+  //PATRON SINGLETON PARA QUE HAYA UNA SOLA INSTANCIA DE LA CONEXION
   connect() {
     if (!MongoLib.connection) {
       MongoLib.connection = new Promise((resolve, reject) => {

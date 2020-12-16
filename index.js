@@ -25,10 +25,13 @@ app.use(helmet());
 
 /** Routes Middleware */
 app.use('/', express.static(__dirname + '/public'));
-const moviesApi = require('./routes/movies.js') //rutas permitidas
-moviesApi(app)
+const authApi = require('./routes/auth');
+authApi(app);
+const moviesApi = require('./routes/movies');
+moviesApi(app);
+const userMoviesApi = require('./routes/userMovies');
+userMoviesApi(app);
 
-/** Statics */
 
 /** Middleware that keep the format of the url using slashes at start and end */
 const slash = require('express-slash')
@@ -41,7 +44,8 @@ app.use(logErrors) // Makes a console.log
 app.use(wrapErrors) // Validate a boom error
 app.use(errorHandler) // Response the error
 
+
 /** Run the app in the port */
-app.listen(config.port, () => { 
+app.listen(config.port, () => {
   console.log(`Listening https://localhost:${config.port}`);
 })
